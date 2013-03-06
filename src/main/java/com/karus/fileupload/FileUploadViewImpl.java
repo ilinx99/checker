@@ -25,6 +25,7 @@ public class FileUploadViewImpl extends VerticalLayout implements FileUploadView
 	@Autowired
 	private FileUploadComponent upload;
 	
+	
 	@PostConstruct
 	public void build() {
 		panel.addComponent(upload);

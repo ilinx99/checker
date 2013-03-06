@@ -4,21 +4,28 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.karus.domain.BadEntryParseException;
 import com.karus.domain.DictionaryEntry;
+import com.karus.entity.Login;
+import com.karus.service.LoginServiceImpl;
 
 @Component
 public class DictionartEntriesModel {
 	private static final String ENTRY_SEPARATOR = ",";
 	private static final String POL_ENG_SEPARATOR = "-";
+	
+	@Autowired
+	private LoginServiceImpl loginService;
 
 	private List<DictionaryEntry> entries = Lists.newArrayList();
 	private Iterator<DictionaryEntry> entriesIterator;
 	
 	public void parseLine(String strLine) throws BadEntryParseException {
+		List<Login> logins = loginService.getLogins();
 		String[] polEngEntries = strLine.split(POL_ENG_SEPARATOR);
 		if (polEngEntries.length != 2) {
 			throw new BadEntryParseException("Missing or too many separators");
