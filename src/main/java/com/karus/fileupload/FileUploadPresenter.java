@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 
 import com.karus.domain.BadEntryParseException;

@@ -27,7 +27,6 @@ import com.vaadin.server.ExternalResource;
 import com.vaadin.server.Terminal;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServiceSession;
-import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
