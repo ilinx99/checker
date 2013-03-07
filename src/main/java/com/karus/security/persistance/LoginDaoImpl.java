@@ -1,4 +1,4 @@
-package com.karus.dao;
+package com.karus.security.persistance;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.karus.entity.Login;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {

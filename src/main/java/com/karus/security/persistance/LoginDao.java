@@ -1,8 +1,7 @@
-package com.karus.dao;
+package com.karus.security.persistance;
 
 import java.util.List;
 
-import com.karus.entity.Login;
 
 public interface LoginDao {
 	public List<Login> getLogins();

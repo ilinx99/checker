@@ -1,4 +1,4 @@
-package com.karus.entity;
+package com.karus.security.persistance;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
