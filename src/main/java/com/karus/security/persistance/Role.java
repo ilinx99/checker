@@ -22,7 +22,7 @@ public class Role implements Serializable {
 	private Integer id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = Login.COLUMN_ID, nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "loginId", nullable = false, insertable = false, updatable = false)
 	private Login login;
 
 	@Column(name = "roleName")

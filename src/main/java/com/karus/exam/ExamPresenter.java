@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.karus.domain.DictionaryEntry;
-import com.karus.entries.DictionartEntriesModel;
+import com.karus.entries.DictionaryEntriesModel;
 import com.karus.fileupload.FileUploadView;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Button.ClickEvent;
@@ -19,8 +19,7 @@ public class ExamPresenter{
 	@Autowired
 	private ExamView view;
 	
-	@Autowired
-	private DictionartEntriesModel dictEntries;
+	private DictionaryEntriesModel dictEntries;
 	
 	@Autowired
 	private LastAnswerModel model;

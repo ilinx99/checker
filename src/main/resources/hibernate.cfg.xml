@@ -7,6 +7,9 @@
     <session-factory>
         <mapping class="com.karus.security.persistance.Login" />
         <mapping class="com.karus.security.persistance.Role" />
+        <mapping class="com.karus.exam.persistence.Exam" />
+        <mapping class="com.karus.exam.persistence.ExamEntry" />
+        <mapping class="com.karus.exam.persistence.Word" />
     </session-factory>
          
 </hibernate-configuration>

@@ -4,17 +4,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.karus.domain.BadEntryParseException;
 import com.karus.domain.DictionaryEntry;
 
-@Component
-public class DictionartEntriesModel {
+public class DictionaryEntriesModel {
 	private static final String ENTRY_SEPARATOR = ",";
 	private static final String POL_ENG_SEPARATOR = "-";
 
+	private String examName;
 	private List<DictionaryEntry> entries = Lists.newArrayList();
 	private Iterator<DictionaryEntry> entriesIterator;
 	
@@ -73,5 +71,13 @@ public class DictionartEntriesModel {
 
 	public void setEntries(List<DictionaryEntry> entries) {
 		this.entries = entries;
+	}
+
+	public String getExamName() {
+		return examName;
+	}
+
+	public void setExamName(String examName) {
+		this.examName = examName;
 	}
 }

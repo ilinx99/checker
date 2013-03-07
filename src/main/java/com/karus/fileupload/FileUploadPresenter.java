@@ -16,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.karus.domain.BadEntryParseException;
-import com.karus.entries.DictionartEntriesModel;
+import com.karus.entries.DictionaryEntriesModel;
+import com.karus.exam.ExamService;
 import com.karus.exam.ExamView;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
@@ -34,9 +35,9 @@ public class FileUploadPresenter implements Receiver, SucceededListener {
 
 	@Autowired
 	private FileUploadView view;
-
+	
 	@Autowired
-	private DictionartEntriesModel model;
+	private ExamService examService;
 
 	@PostConstruct
 	public void build() {
@@ -66,6 +67,8 @@ public class FileUploadPresenter implements Receiver, SucceededListener {
 	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		try {
+			DictionaryEntriesModel model = new DictionaryEntriesModel();
+			model.setExamName(file.getName());
 			FileInputStream fstream = new FileInputStream(file);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -73,13 +76,14 @@ public class FileUploadPresenter implements Receiver, SucceededListener {
 			while ((strLine = br.readLine()) != null) {
 				model.parseLine(strLine);
 			}
+			examService.save(model);
+			
 			Page.getCurrent().setFragment("!" + ExamView.NAME);
 			in.close();
 		} catch (IOException e) {
 			Notification.show("Could not read file");
 		} catch (BadEntryParseException e) {
 			Notification.show("Error while parsing file, please check your file and try again");
-			model.clear();
 		}
 	}
 }
