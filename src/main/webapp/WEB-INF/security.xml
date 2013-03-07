@@ -18,13 +18,38 @@
         <form-login login-page="/login/" authentication-failure-url="/login/?error=true" default-target-url='/checker/'
             always-use-default-target='true'/>
     </http>
+    
+    <beans:bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
+
+<!-- 	<beans:bean class="com.karus.security.DbLoginPasswordEncoder" -->
+<!--              init-method="encodePasswords"> -->
+<!-- 	</beans:bean> -->
+
+	<beans:bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<beans:property name="userPropertyToUse" value="username" />
+	</beans:bean>
+    
+    <beans:bean id="daoAuthenticationProvider"
+	 	class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	  <beans:property name="userDetailsService" ref="userDetailsService"/>
+	</beans:bean>
+	
+	<beans:bean id="authenticationManager"
+    	class="org.springframework.security.authentication.ProviderManager">
+	  <beans:property name="providers">
+	    <beans:list>
+	      <beans:ref local="daoAuthenticationProvider" />
+	    </beans:list>
+	  </beans:property>
+	</beans:bean>
  
 	<authentication-manager alias="authenticationManager">
-	  <authentication-provider>
-	    <user-service>
-			<user name="karus" password="pupal" authorities="ROLE_USER" />
-	    </user-service>
-	  </authentication-provider>
+	  	<authentication-provider user-service-ref="userDetailsService">
+		    <password-encoder ref="passwordEncoder">
+		    	<salt-source ref="saltSource"/>
+		    </password-encoder>
+		 </authentication-provider>
 	</authentication-manager>
  
 </beans:beans>

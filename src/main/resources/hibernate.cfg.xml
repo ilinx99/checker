@@ -5,7 +5,8 @@
  
 <hibernate-configuration>
     <session-factory>
-        <mapping class="com.karus.entity.Login" />
+        <mapping class="com.karus.security.persistance.Login" />
+        <mapping class="com.karus.security.persistance.Role" />
     </session-factory>
          
 </hibernate-configuration>

@@ -183,12 +183,6 @@
             <version>${spring.version}</version>  
         </dependency> 
 
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0</version>
-			<optional>true</optional>
-		</dependency>
 		<!-- AspectJ dependencies -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

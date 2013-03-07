@@ -14,7 +14,7 @@ import com.karus.domain.DictionaryEntry;
 public class DictionartEntriesModel {
 	private static final String ENTRY_SEPARATOR = ",";
 	private static final String POL_ENG_SEPARATOR = "-";
-	
+
 	private List<DictionaryEntry> entries = Lists.newArrayList();
 	private Iterator<DictionaryEntry> entriesIterator;
 	

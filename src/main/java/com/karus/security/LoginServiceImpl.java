@@ -9,15 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.karus.security.persistance.Login;
 import com.karus.security.persistance.LoginDao;
 
-
 @Service
-public class LoginServiceImpl {
-	@Autowired 
+public class LoginServiceImpl implements LoginService {
+	@Autowired
 	private LoginDao loginDao;
 	
+	@Override
 	@Transactional
-	public List<Login> getLogins(){
+	public List<Login> getLogins() {
 		return loginDao.getLogins();
 	}
-	
+
+	@Override
+	@Transactional
+	public void updatePassword(String name, String pass) {
+		loginDao.updatePassword(name, pass);
+	}
+
 }

@@ -1,10 +1,10 @@
-package com.karus.security.persistance;
+package com.karus.security;
 
 import java.util.List;
 
+import com.karus.security.persistance.Login;
 
-public interface LoginDao {
+public interface LoginService {
 	List<Login> getLogins();
-	Login findLoginByName(String name);
 	void updatePassword(String name, String pass);
 }
