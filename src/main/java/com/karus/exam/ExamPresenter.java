@@ -4,20 +4,26 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.karus.domain.DictionaryEntry;
 import com.karus.entries.DictionaryEntriesModel;
-import com.karus.fileupload.FileUploadView;
+import com.karus.exam.chooser.ExamChooserView;
+import com.karus.exam.persistence.ExamService;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 @Component
+@Scope("singleton")
 public class ExamPresenter{
 	@Autowired
 	private ExamView view;
+	
+	@Autowired
+	private ExamService examService;
 	
 	private DictionaryEntriesModel dictEntries;
 	
@@ -48,6 +54,9 @@ public class ExamPresenter{
 		
 		@Override
 		public void buttonClick(ClickEvent event) {
+			String examName = view.getExamName();
+			dictEntries = examService.getDictEntriesByName(examName);
+			
 			lastEntry = dictEntries.next();
 			int totalElementCount = dictEntries.size();
 			view.startExam();
@@ -100,7 +109,7 @@ public class ExamPresenter{
 		public void buttonClick(ClickEvent event) {
 			dictEntries.clear();
 			view.reset();
-			Page.getCurrent().setFragment("!" + FileUploadView.NAME);
+			Page.getCurrent().setFragment("!" + ExamChooserView.NAME);
 		}
 	}
 }

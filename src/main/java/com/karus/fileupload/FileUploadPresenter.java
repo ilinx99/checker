@@ -13,12 +13,13 @@ import java.io.OutputStream;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.karus.domain.BadEntryParseException;
 import com.karus.entries.DictionaryEntriesModel;
-import com.karus.exam.ExamService;
-import com.karus.exam.ExamView;
+import com.karus.exam.persistence.ExamService;
+import com.karus.home.HomeView;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Upload.Receiver;
@@ -26,6 +27,7 @@ import com.vaadin.ui.Upload.SucceededEvent;
 import com.vaadin.ui.Upload.SucceededListener;
 
 @Component
+@Scope("singleton")
 public class FileUploadPresenter implements Receiver, SucceededListener {
 	private static final String UPLOAD_DIR_PATH = "/tmp/uploads/";
 
@@ -78,7 +80,8 @@ public class FileUploadPresenter implements Receiver, SucceededListener {
 			}
 			examService.save(model);
 			
-			Page.getCurrent().setFragment("!" + ExamView.NAME);
+			Page.getCurrent().setFragment("!" + HomeView.NAME);
+			Notification.show("Exam created successfuly");
 			in.close();
 		} catch (IOException e) {
 			Notification.show("Could not read file");

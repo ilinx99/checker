@@ -3,10 +3,17 @@ package com.karus.domain;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.karus.exam.persistence.Lang;
+import com.karus.exam.persistence.Word;
 
 public class DictionaryEntry {
 	private List<String> engWords;
 	private List<String> polWords;
+	
+	public DictionaryEntry() {
+		this.engWords = Lists.newArrayList();
+		this.polWords = Lists.newArrayList();
+	}
 
 	public DictionaryEntry(String engWord, String polWord) {
 		this.engWords = Lists.newArrayList(engWord);
@@ -32,5 +39,18 @@ public class DictionaryEntry {
 
 	public void setPolWords(List<String> polWords) {
 		this.polWords = polWords;
+	}
+
+	public void addWord(Word word) {
+		Lang lang = word.getLang();
+		if (Lang.POL.equals(lang)){
+			polWords.add(word.getText());
+			return;
+		} else if (Lang.ENG.equals(lang)) {
+			engWords.add(word.getText());
+			return;
+		}
+		
+		throw new IllegalArgumentException("Unknown language type = " + lang);
 	}
 }

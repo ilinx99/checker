@@ -4,7 +4,7 @@ import com.karus.domain.DictionaryEntry;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickListener;
 
-public interface ExamView  extends View {
+public interface ExamView extends View {
 	String NAME = "exam";
 	
 	void addStartListener(ClickListener listener);
@@ -28,5 +28,7 @@ public interface ExamView  extends View {
 	void setFirstQuestion(DictionaryEntry dictEntry, int totalElementCount);
 
 	void addChangeExamClickListener(ClickListener changeExamClickListener);
+	
+	String getExamName();
 }
 

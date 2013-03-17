@@ -8,15 +8,16 @@ import org.springframework.stereotype.Component;
 
 import ru.xpoft.vaadin.VaadinView;
 
+import com.karus.navigation.CheckerLayout;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.SucceededListener;
 import com.vaadin.ui.VerticalLayout;
 
 @Component
-@Scope("prototype")
+@Scope("singleton")
 @VaadinView(FileUploadView.NAME)
-public class FileUploadViewImpl extends VerticalLayout implements FileUploadView {
+public class FileUploadViewImpl extends CheckerLayout implements FileUploadView {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired

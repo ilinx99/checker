@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.google.gwt.thirdparty.guava.common.collect.Sets;
 import com.karus.domain.DictionaryEntry;
 import com.karus.entries.DictionaryEntriesModel;
@@ -61,5 +62,36 @@ public class EntriesModelConverter {
 		
 		return words;
 	}
+
+	public DictionaryEntriesModel toDictionaryEntriesModel(Exam exam) {
+		DictionaryEntriesModel model = new DictionaryEntriesModel();
+		model.setExamName(exam.getName());
+		
+		List<DictionaryEntry> dictEntries = toDictionaryEntries(exam.getEntries());
+		model.setEntries(dictEntries);
+		
+		return model;
+	}
+
+	private List<DictionaryEntry> toDictionaryEntries(Set<ExamEntry> entries) {
+		List<DictionaryEntry> dictEntries = Lists.newArrayList();
+		
+		for (ExamEntry examEntry : entries) {
+			dictEntries.add(toDictEntry(examEntry));
+		}
+		
+		return dictEntries;
+	}
+
+	private DictionaryEntry toDictEntry(ExamEntry examEntry) {
+		DictionaryEntry dictEntry = new DictionaryEntry();
+		for (Word word : examEntry.getWords()) {
+			dictEntry.addWord(word);
+		}
+
+		return dictEntry;
+	}
+
+
 
 }

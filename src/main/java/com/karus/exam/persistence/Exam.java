@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.common.base.Function;
+
 
 @Entity
 @Table(name = "exam")
@@ -32,7 +34,7 @@ public class Exam implements Serializable {
 	@Column(name = COLUMN_NAME)
 	private String name;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="examId")
 	private Set<ExamEntry> entries;
 
@@ -58,6 +60,13 @@ public class Exam implements Serializable {
 
 	public void setEntries(Set<ExamEntry> entries) {
 		this.entries = entries;
+	}
+	
+	public static class ExamNameFunction implements Function<Exam, String> {
+		@Override
+		public String apply(Exam exam) {
+			return exam.getName();
+		}
 	}
 	
 }

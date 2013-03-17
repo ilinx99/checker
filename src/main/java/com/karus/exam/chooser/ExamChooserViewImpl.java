@@ -1,0 +1,52 @@
+package com.karus.exam.chooser;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import ru.xpoft.vaadin.VaadinView;
+
+import com.karus.exam.persistence.ExamService;
+import com.karus.navigation.CheckerLayout;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Button.ClickListener;
+
+@Component
+@Scope("singleton")
+@VaadinView(ExamChooserView.NAME)
+public class ExamChooserViewImpl extends CheckerLayout implements ExamChooserView {
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	private ExamNamePicker examNamePicker;
+	
+	@Autowired
+	private ExamService examService;
+	
+	
+	@PostConstruct
+	public void build(){
+		this.addComponent(examNamePicker);
+	}
+	
+	@Override
+	public void enter(ViewChangeEvent event) {
+		List<String> examNames = examService.getExamNames();
+		examNamePicker.setExamNames(examNames);
+	}
+	
+	@Override
+	public void addOkButtonListener(ClickListener listener) {
+		examNamePicker.addOkButtonListener(listener);
+	}
+
+	@Override
+	public String getSelectedExamName() {
+		return examNamePicker.getSelectedExamName();
+	}
+
+}

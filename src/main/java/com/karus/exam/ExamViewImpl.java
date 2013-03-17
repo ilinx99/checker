@@ -3,21 +3,25 @@ package com.karus.exam;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ru.xpoft.vaadin.VaadinView;
 
 import com.karus.domain.DictionaryEntry;
+import com.karus.home.HomeView;
+import com.karus.navigation.CheckerLayout;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ChameleonTheme;
 
 @Component
+@Scope("singleton")
 @VaadinView(ExamView.NAME)
-public class ExamViewImpl extends HorizontalLayout implements ExamView {
+public class ExamViewImpl extends CheckerLayout implements ExamView {
 	private static final long serialVersionUID = 1L;
 
 	private VerticalLayout inputAndTableLayout;
@@ -34,8 +38,22 @@ public class ExamViewImpl extends HorizontalLayout implements ExamView {
 	@Autowired
 	private ResultTable resultTable;
 
+	private String examName;
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		if (event.getParameters() == null) {
+			Page.getCurrent().setFragment("!" + HomeView.NAME);
+			return;
+		}
+
+		String[] params = event.getParameters().split("/");
+		if (params.length != 1) {
+			Page.getCurrent().setFragment("!" + HomeView.NAME);
+			return;
+		}
+
+		examName = params[0];
 	}
 
 	@PostConstruct
@@ -111,5 +129,10 @@ public class ExamViewImpl extends HorizontalLayout implements ExamView {
 	@Override
 	public void addChangeExamClickListener(ClickListener changeExamClickListener) {
 		answerInputPanel.addChangeExamClickListener(changeExamClickListener);
+	}
+
+	@Override
+	public String getExamName() {
+		return examName;
 	}
 }

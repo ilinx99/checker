@@ -1,7 +1,11 @@
 package com.karus.exam.persistence;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +23,18 @@ public class ExamDaoImpl implements ExamDao {
 		return sessionFactory.getCurrentSession();
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Exam> getExams() {
+		return getSession().createQuery("from Exam").list();
+	}
+
+	@Override
+	public Exam findExamByName(String examName) {
+		return (Exam) getExamCriteria().add(Restrictions.eq("name", examName)).uniqueResult();
+	}
+	
+	public Criteria getExamCriteria(){
+		return getSession().createCriteria(Exam.class);
+	}
 }
