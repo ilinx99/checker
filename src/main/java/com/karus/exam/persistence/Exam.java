@@ -3,6 +3,7 @@ package com.karus.exam.persistence;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.google.common.base.Function;
 
 
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Table(name = "exam")
 public class Exam implements Serializable {
 
@@ -34,6 +40,7 @@ public class Exam implements Serializable {
 	@Column(name = COLUMN_NAME)
 	private String name;
 	
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name="examId")
 	private Set<ExamEntry> entries;

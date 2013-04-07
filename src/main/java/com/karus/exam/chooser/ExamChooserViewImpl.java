@@ -37,6 +37,7 @@ public class ExamChooserViewImpl extends CheckerLayout implements ExamChooserVie
 	public void enter(ViewChangeEvent event) {
 		List<String> examNames = examService.getExamNames();
 		examNamePicker.setExamNames(examNames);
+		examNamePicker.setVisible(true);
 	}
 	
 	@Override

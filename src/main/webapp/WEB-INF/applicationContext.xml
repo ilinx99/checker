@@ -8,13 +8,12 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+	<import resource="security.xml"/>
+	<import resource="dataSource.xml"/>
 	
 	<context:annotation-config/>
  	<context:component-scan base-package="com.karus" >
-		<context:include-filter type="regex" expression="com.karus.security.*"/>
 	</context:component-scan>
 	
-	<import resource="security.xml"/>
-	<import resource="dataSource.xml"/>
 
 </beans>

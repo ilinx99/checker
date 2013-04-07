@@ -12,7 +12,6 @@ import com.karus.navigation.CheckerLayout;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.SucceededListener;
-import com.vaadin.ui.VerticalLayout;
 
 @Component
 @Scope("singleton")
@@ -35,6 +34,7 @@ public class FileUploadViewImpl extends CheckerLayout implements FileUploadView 
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		panel.setVisible(true);
 	}
 
 	@Override

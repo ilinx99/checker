@@ -54,6 +54,9 @@ public class ExamViewImpl extends CheckerLayout implements ExamView {
 		}
 
 		examName = params[0];
+		introPanel.setVisible(true);
+		inputAndTableLayout.setVisible(false);
+		resultPanel.setVisible(false);
 	}
 
 	@PostConstruct
@@ -71,7 +74,10 @@ public class ExamViewImpl extends CheckerLayout implements ExamView {
 
 	@Override
 	public void startExam() {
-		removeComponent(introPanel);
+		introPanel.setVisible(false);
+		inputAndTableLayout.setVisible(true);
+		resultPanel.setVisible(true);
+//		removeComponent(introPanel);
 		
 		inputAndTableLayout.addComponent(answerInputPanel);
 		inputAndTableLayout.addComponent(resultTable);

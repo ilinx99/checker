@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.stat.SessionStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,12 +27,13 @@ public class ExamDaoImpl implements ExamDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Exam> getExams() {
-		return getSession().createQuery("from Exam").list();
+		List<Exam> exams = getSession().createQuery("from Exam").setCacheable(true).list();
+		return exams;
 	}
 
 	@Override
 	public Exam findExamByName(String examName) {
-		return (Exam) getExamCriteria().add(Restrictions.eq("name", examName)).uniqueResult();
+		return (Exam) getExamCriteria().add(Restrictions.eq("name", examName)).setCacheable(true).uniqueResult();
 	}
 	
 	public Criteria getExamCriteria(){
